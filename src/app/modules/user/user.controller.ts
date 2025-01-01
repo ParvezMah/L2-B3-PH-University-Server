@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { UserService } from "./user.service";
 
 const createStudent = async (req: Request, res: Response) => {
@@ -14,8 +15,16 @@ const createStudent = async (req: Request, res: Response) => {
             message: 'Student is created succesfully',
             data: result,
           });
-        } catch (err) {
-          console.log(err);
+        } catch (err: any) {
+          res.status(500).json({
+            success: false,
+            message: err.message || 'something went wrong',
+            error: err,
+          })
         }
+}
+
+export const UserControllers = {
+  createStudent,
 }
 
